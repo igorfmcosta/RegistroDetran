@@ -13,7 +13,7 @@ namespace RegistroDetran.API.Controllers
                 [FromBody] ContratoRequest request,
                 [FromServices] IDetranScService soapService) =>
             {
-                var response = await soapService.RegistrarContrato(request);
+                var response = await soapService.RegistrarContrato(token, request);
                 return Results.Ok(response);
             })
             .WithName("RegistrarContrato")
@@ -25,7 +25,7 @@ namespace RegistroDetran.API.Controllers
                 [FromBody] ContratoRequest request,
                 [FromServices] IDetranScService soapService) =>
             {
-                var response = await soapService.ConsultarSequencialContrato(request);
+                var response = await soapService.ConsultarSequencialContrato(token, request);
                 return Results.Ok(response);
             })
             .WithName("ConsultarSequencialContrato")
@@ -37,7 +37,7 @@ namespace RegistroDetran.API.Controllers
                 [FromBody] ContratoRequest request,
                 [FromServices] IDetranScService soapService) =>
             {
-                var response = await soapService.AnexarAquivo(request);
+                var response = await soapService.AnexarAquivo(token, request);
                 return Results.Ok(response);
             })
             .WithName("AnexarAquivo")
