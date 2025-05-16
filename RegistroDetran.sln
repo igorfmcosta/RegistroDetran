@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDetran.API", "RegistroDetran.API\RegistroDetran.API.csproj", "{15E9F97F-BB5F-4746-93C5-3254059A5E42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDetran.Application", "RegistroDetran.Application\RegistroDetran.Application.csproj", "{C7D7565E-D679-457B-B6BC-DB8103BD9388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDetran.Core", "RegistroDetran.Core\RegistroDetran.Core.csproj", "{CFC99EA5-36A9-43AC-9B8D-3A0756B410D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDetran.Infrastructure", "RegistroDetran.Infrastructure\RegistroDetran.Infrastructure.csproj", "{7B0B6081-1E48-40F3-98CB-C4A6B8551DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationProtectorTool", "ConfigurationProtectorTool\ConfigurationProtectorTool.csproj", "{3F0C8FC3-C296-4DA7-B560-BBD5514E2AA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15E9F97F-BB5F-4746-93C5-3254059A5E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E9F97F-BB5F-4746-93C5-3254059A5E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E9F97F-BB5F-4746-93C5-3254059A5E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E9F97F-BB5F-4746-93C5-3254059A5E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D7565E-D679-457B-B6BC-DB8103BD9388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D7565E-D679-457B-B6BC-DB8103BD9388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D7565E-D679-457B-B6BC-DB8103BD9388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D7565E-D679-457B-B6BC-DB8103BD9388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC99EA5-36A9-43AC-9B8D-3A0756B410D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC99EA5-36A9-43AC-9B8D-3A0756B410D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC99EA5-36A9-43AC-9B8D-3A0756B410D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC99EA5-36A9-43AC-9B8D-3A0756B410D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B0B6081-1E48-40F3-98CB-C4A6B8551DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B0B6081-1E48-40F3-98CB-C4A6B8551DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B0B6081-1E48-40F3-98CB-C4A6B8551DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B0B6081-1E48-40F3-98CB-C4A6B8551DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F0C8FC3-C296-4DA7-B560-BBD5514E2AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F0C8FC3-C296-4DA7-B560-BBD5514E2AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F0C8FC3-C296-4DA7-B560-BBD5514E2AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F0C8FC3-C296-4DA7-B560-BBD5514E2AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D2319D8-A0DC-47FA-971D-029C41555EE3}
+	EndGlobalSection
+EndGlobal
