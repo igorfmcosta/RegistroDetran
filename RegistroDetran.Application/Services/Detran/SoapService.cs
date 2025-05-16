@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using RegistroDetran.Application.DTOs.Contrato;
 using RegistroDetran.Application.Services.Detran.Requests.RJ;
-using RegistroDetran.Core.Interfaces;
-using RegistroDetran.Core.Models;
+using RegistroDetran.Application.Services.Interfaces;
 using RegistroDetran.Core.Models.Options;
 using System.Net.Http.Headers;
 using System.Text;

@@ -1,4 +1,4 @@
-﻿using RegistroDetran.Core.Models;
+﻿using RegistroDetran.Application.DTOs.Contrato;
 using RegistroDetran.Core.Models.Options;
 
 namespace RegistroDetran.Application.Services.Detran.Requests.SC

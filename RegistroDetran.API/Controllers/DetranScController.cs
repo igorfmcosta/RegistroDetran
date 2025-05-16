@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RegistroDetran.Core.Interfaces;
-using RegistroDetran.Core.Models;
+using RegistroDetran.Application.DTOs.Contrato;
+using RegistroDetran.Application.Services.Interfaces;
 
 namespace RegistroDetran.API.Controllers
 {

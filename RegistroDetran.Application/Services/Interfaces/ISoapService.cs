@@ -1,6 +1,6 @@
-﻿using RegistroDetran.Core.Models;
+﻿using RegistroDetran.Application.DTOs.Contrato;
 
-namespace RegistroDetran.Core.Interfaces
+namespace RegistroDetran.Application.Services.Interfaces
 {
     public interface ISoapService
     {

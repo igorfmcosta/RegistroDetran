@@ -1,4 +1,4 @@
-﻿using RegistroDetran.Core.Models;
+﻿using RegistroDetran.Application.DTOs.Contrato;
 using System.Xml.Linq;
 
 namespace RegistroDetran.Application.Services.Detran.Requests.RJ

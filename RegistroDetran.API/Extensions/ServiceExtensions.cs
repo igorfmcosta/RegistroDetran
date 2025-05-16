@@ -7,6 +7,7 @@ using Polly;
 using Polly.Extensions.Http;
 using RegistroDetran.Application.Services;
 using RegistroDetran.Application.Services.Detran;
+using RegistroDetran.Application.Services.Interfaces;
 using RegistroDetran.Core.Interfaces;
 using RegistroDetran.Core.Models.Options;
 using RegistroDetran.Infrastructure.Data;

@@ -1,5 +1,5 @@
-﻿using RegistroDetran.Core.Extensions;
-using RegistroDetran.Core.Models;
+﻿using RegistroDetran.Application.DTOs.Contrato;
+using RegistroDetran.Core.Extensions;
 using System.Xml.Serialization;
 
 namespace RegistroDetran.Application.DTOs.Detran.SC
