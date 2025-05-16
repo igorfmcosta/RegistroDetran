@@ -21,6 +21,16 @@ namespace RegistroDetran.Infrastructure.Middleware
             {
                 await _next(context);
             }
+            catch (OperationCanceledException ex) when (context.RequestAborted.IsCancellationRequested)
+            {
+                await LogExceptionAsync(dbContext, ex);
+                context.Response.StatusCode = StatusCodes.Status408RequestTimeout;
+            }
+            catch (TaskCanceledException ex)
+            {
+                await LogExceptionAsync(dbContext, ex);
+                context.Response.StatusCode = StatusCodes.Status408RequestTimeout;
+            }
             catch (Exception ex)
             {
                 await LogExceptionAsync(dbContext, ex);

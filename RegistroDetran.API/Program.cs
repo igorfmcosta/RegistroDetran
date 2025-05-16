@@ -1,8 +1,15 @@
+using Microsoft.AspNetCore.Http.Json;
 using RegistroDetran.API.Controllers;
 using RegistroDetran.API.Extensions;
 using RegistroDetran.Infrastructure.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // Add services to the container
 builder.Services.AddControllers();
@@ -37,7 +44,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Exception handling middleware
-app.UseExceptionMiddleware();
+app.UseMiddlewares();
 
 // Map endpoints
 app.MapAuthEndpoints();

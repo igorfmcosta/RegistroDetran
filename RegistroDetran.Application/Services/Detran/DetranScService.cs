@@ -12,11 +12,11 @@ namespace RegistroDetran.Application.Services.Detran
         private readonly HttpClient _httpClient = httpClient;
         private readonly DetranScOptions detranScSettings = detranScSettings.Value;
 
-        public async Task<string> AnexarAquivo(ContratoRequest contrato) 
+        public async Task<string> AnexarAquivo(CancellationToken cancellationToken, ContratoRequest contrato) 
             => await new AnexarAquivoResquestService(_httpClient, detranScSettings)
-            .SendRequestAsync(contrato);
+            .SendRequestAsync(cancellationToken, contrato);
 
-        public async Task<IEnumerable<string>> RegistrarContrato(ContratoRequest contratoRequest)
+        public async Task<IEnumerable<string>> RegistrarContrato(CancellationToken cancellationToken, ContratoRequest contratoRequest)
         {
             var response = new List<string>();
 
@@ -26,7 +26,7 @@ namespace RegistroDetran.Application.Services.Detran
                 {
                     var request = (RegistrarContratoDTO)(contratoRequest, item);
                     response.Add(await new RegistrarContratoResquestService(_httpClient, detranScSettings)
-                    .SendRequestAsync(request));
+                    .SendRequestAsync(cancellationToken, request));
                 }
                 catch (Exception)
                 {
@@ -38,7 +38,7 @@ namespace RegistroDetran.Application.Services.Detran
             return response;
         }
 
-        public async Task<IEnumerable<string>> ConsultarSequencialContrato(ContratoRequest contratoRequest)
+        public async Task<IEnumerable<string>> ConsultarSequencialContrato(CancellationToken cancellationToken, ContratoRequest contratoRequest)
         {
             var response = new List<string>();
 
@@ -48,7 +48,7 @@ namespace RegistroDetran.Application.Services.Detran
                 {
                     var request = (ConsultarSequencialContratoDTO)(contratoRequest, item);
                     response.Add(await new ConsultarSequencialContratoResquestService(_httpClient, detranScSettings)
-                    .SendRequestAsync(request));
+                    .SendRequestAsync(cancellationToken, request));
                 }
                 catch (Exception)
                 {

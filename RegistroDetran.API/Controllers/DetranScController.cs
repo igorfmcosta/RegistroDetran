@@ -9,8 +9,9 @@ namespace RegistroDetran.API.Controllers
         public static void MapDetranScEndpoints(this WebApplication app)
         {
             app.MapPost("/api/detran/sc/registrar_contrato", async (
-            [FromBody] ContratoRequest request,
-            [FromServices] IDetranScService soapService) =>
+                CancellationToken token,
+                [FromBody] ContratoRequest request,
+                [FromServices] IDetranScService soapService) =>
             {
                 var response = await soapService.RegistrarContrato(request);
                 return Results.Ok(response);
@@ -20,6 +21,7 @@ namespace RegistroDetran.API.Controllers
             .RequireAuthorization();
 
             app.MapPost("/api/detran/sc/consultar_contrato", async (
+                CancellationToken token,
                 [FromBody] ContratoRequest request,
                 [FromServices] IDetranScService soapService) =>
             {
@@ -31,6 +33,7 @@ namespace RegistroDetran.API.Controllers
             .RequireAuthorization();
 
             app.MapPost("/api/detran/sc/anexar_arquivo", async (
+                CancellationToken token,
                 [FromBody] ContratoRequest request,
                 [FromServices] IDetranScService soapService) =>
             {

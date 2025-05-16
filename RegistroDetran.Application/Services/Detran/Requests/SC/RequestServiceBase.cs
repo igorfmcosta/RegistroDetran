@@ -18,13 +18,13 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
         protected abstract string SoapAction { get; }
         protected abstract string OperationName { get; }
 
-        public async Task<string> SendRequestAsync(TRequest request)
+        public async Task<string> SendRequestAsync(CancellationToken cancellationToken, TRequest request)
         {
-            var response = await ExecuteSoapRequestAsync(request);
+            var response = await ExecuteSoapRequestAsync(cancellationToken, request);
             return response;
         }
 
-        protected async Task<string> ExecuteSoapRequestAsync(TRequest request)
+        protected async Task<string> ExecuteSoapRequestAsync(CancellationToken cancellationToken, TRequest request)
         {
             var soapEnvelope = BuildSoapEnvelope(request);
             var requestContent = new StringContent(soapEnvelope, Encoding.UTF8, "text/xml");
@@ -34,7 +34,7 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
                 requestMessage.Content = requestContent;
                 requestMessage.Headers.Add("SOAPAction", SoapAction);
 
-                var response = await _httpClient.SendAsync(requestMessage);
+                var response = await _httpClient.SendAsync(requestMessage, cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync();
