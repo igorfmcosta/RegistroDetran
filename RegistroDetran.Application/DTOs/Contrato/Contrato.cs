@@ -17,8 +17,8 @@ namespace RegistroDetran.Application.DTOs.Contrato
         public decimal? ValorCredito { get; set; }
         public DateTime? DataLiberacaoCredito { get; set; }
         public decimal? JurosMes { get; set; }
-        public bool TaxaJurosMulta { get; set; } = false;
-        public bool TaxaMoraDia { get; set; } = false;
+        public bool? TaxaJurosMulta { get; set; } = false;
+        public bool? TaxaMoraDia { get; set; } = false;
         public double? TaxaMora { get; set; }
         public int? DiaVencimento { get; set; }
         public double? TaxaMulta { get; set; }
@@ -54,7 +54,7 @@ namespace RegistroDetran.Application.DTOs.Contrato
         public DonoDoVeiculo? NovoDevedor { get; set; }
         public DonoDoVeiculo? TerceiroGarantidor { get; set; }
         public List<VeiculoContrato> VeiculoContrato { get; set; } = new List<VeiculoContrato>();
-        public StatusContratoEnum? Status { get; set; } = StatusContratoEnum.AGUARDANDO_ENVIO_DETRAN;
+        public StatusContratoEnum Status { get; set; }
         public string UfLiberacao { get; set; } = string.Empty;
         public string MunicipioLiberacao { get; set; } = string.Empty;
         public DateTime? DataCadastro { get; set; }
@@ -66,7 +66,7 @@ namespace RegistroDetran.Application.DTOs.Contrato
         public List<Arquivo> Arquivos { get; set; } = new List<Arquivo>();
         public Contrato? ContratoAnterior { get; set; }
         public List<string> ErrosContrato { get; set; } = new List<string>();
-        public RestricaoContratoEnum? RestricaoContrato { get; set; }
+        public RestricaoContratoEnum RestricaoContrato { get; set; }
         public Contrato? ContratoPai { get; set; }
         public bool Deletado { get; set; } = false;
         public string UrlEspelho { get; set; } = string.Empty;

@@ -1,13 +1,17 @@
+using Microsoft.AspNetCore.Http.Json;
 using RegistroDetran.API.Controllers;
 using RegistroDetran.API.Extensions;
 using RegistroDetran.Infrastructure.Data;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllers();
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new CustomDateTimeConverter());
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -40,7 +44,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Exception handling middleware
-app.UseMiddlewares();
+//app.UseMiddlewares();
 
 // Map endpoints
 app.MapAuthEndpoints();

@@ -2,6 +2,7 @@
 
 namespace RegistroDetran.Core.Models.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum AditivoEnum
     {
         [JsonStringEnumMemberName("Substituição de Garantia")]

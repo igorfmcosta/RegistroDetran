@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace RegistroDetran.Core.Models.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RestricaoContratoEnum
     {
         [JsonStringEnumMemberName("Alienação Fiduciária Consórcio")]
