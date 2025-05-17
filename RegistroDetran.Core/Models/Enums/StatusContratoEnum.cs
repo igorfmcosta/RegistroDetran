@@ -4,17 +4,17 @@ namespace RegistroDetran.Core.Models.Enums
 {
     public enum StatusContratoEnum
     {
-        [JsonPropertyName("Aguardando aprovação do Detran")]
+        [JsonStringEnumMemberName("Aguardando aprovação do Detran")]
         AGUARDANDO_APROVACAO_DETRAN,
-        [JsonPropertyName("Erro ao validar contrato")]
+        [JsonStringEnumMemberName("Erro ao validar contrato")]
         ERROR,
-        [JsonPropertyName("ontrato registrado com sucesso")]
+        [JsonStringEnumMemberName("ontrato registrado com sucesso")]
         REGISTRADO,
-        [JsonPropertyName("Aguardando envio para o Detran")]
+        [JsonStringEnumMemberName("Aguardando envio para o Detran")]
         AGUARDANDO_ENVIO_DETRAN,
-        [JsonPropertyName("Contrato baixado")]
+        [JsonStringEnumMemberName("Contrato baixado")]
         BAIXADO,
-        [JsonPropertyName("Contrato cancelado")]
+        [JsonStringEnumMemberName("Contrato cancelado")]
         CANCELADO
     }
 }

@@ -28,8 +28,8 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 Chassi = source.veiculo.Chassi,
                 CNPJAgente = source.request.Contrato.AgenteFinanceiro?.CpfCnpj ?? string.Empty,
                 Remarcacao = source.veiculo.Remarcado ? 1 : 2,
-                NumGravame = source.veiculo.Gravame.GetNumbers().ToInt().Value,
-                TipoGravame = source.request.Contrato.RestricaoContrato.ToIntValue(),
+                NumGravame = source.veiculo.Gravame.ToInt(),
+                TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>(),
             };
     }
 }

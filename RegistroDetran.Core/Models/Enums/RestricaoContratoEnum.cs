@@ -5,23 +5,23 @@ namespace RegistroDetran.Core.Models.Enums
 {
     public enum RestricaoContratoEnum
     {
-        [JsonPropertyName("Alienação Fiduciária Consórcio")]
-        [EnumValueAttributeBase<int>(3)]
+        [JsonStringEnumMemberName("Alienação Fiduciária Consórcio")]
+        [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_CONSORCIO,
-        [JsonPropertyName("Alienação Fiduciária Financiamento")]
-        [EnumValueAttributeBase<int>(3)]
+        [JsonStringEnumMemberName("Alienação Fiduciária Financiamento")]
+        [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_FINANCIAMENTO,
-        [JsonPropertyName("Penhor")]
-        [EnumValueAttributeBase<int>(9)]
+        [JsonStringEnumMemberName("Penhor")]
+        [EnumValue<int>("DetranSC", 9)]
         PENHOR,
-        [JsonPropertyName("Reserva de Domínio")]
-        [EnumValueAttributeBase<int>(2)]
+        [JsonStringEnumMemberName("Reserva de Domínio")]
+        [EnumValue<int>("DetranSC", 2)]
         RESERVA_DOMINIO,
-        [JsonPropertyName("Arrendamento Mercantil")]
-        [EnumValueAttributeBase<int>(1)]
+        [JsonStringEnumMemberName("Arrendamento Mercantil")]
+        [EnumValue<int>("DetranSC", 1)]
         ARRENDAMENTO_MERCANTIL,
-        [JsonPropertyName("Alienação Fiduciária Cédula de Crédito")]
-        [EnumValueAttributeBase<int>(3)]
+        [JsonStringEnumMemberName("Alienação Fiduciária Cédula de Crédito")]
+        [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_CEDULA_CREDITO
     }
 }

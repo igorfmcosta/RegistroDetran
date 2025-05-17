@@ -4,9 +4,9 @@ namespace RegistroDetran.Core.Models.Enums
 {
     public enum TipoConsorcioEnum
     {
-        [JsonPropertyName("Grupo")]
+        [JsonStringEnumMemberName("Grupo")]
         GRUPO,
-        [JsonPropertyName("Cota")]
+        [JsonStringEnumMemberName("Cota")]
         COTA
     }
 }

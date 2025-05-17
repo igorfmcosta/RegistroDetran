@@ -5,20 +5,20 @@ namespace RegistroDetran.Core.Models.Enums
 {
     public enum IndiceCorrecaoEnum
     {
-        [JsonPropertyName("Pré-fixado")]
-        [StringEnumValue("Pré-fixado")]
+        [JsonStringEnumMemberName("Pré-fixado")]
+        [EnumValue<string>("DetranSC","Pré-fixado")]
         PRE_FIXADO,
-        [JsonPropertyName("Pós-fixado")]
-        [StringEnumValue("Pós-fixado")]
+        [JsonStringEnumMemberName("Pós-fixado")]
+        [EnumValue<string>("DetranSC", "Pós-fixado")]
         POS_FIXADO,
-        [JsonPropertyName("Valor Bem")]
-        [StringEnumValue("Valor Bem")]
+        [JsonStringEnumMemberName("Valor Bem")]
+        [EnumValue<string>("DetranSC", "Valor Bem")]
         VALOR_BEM,
-        [JsonPropertyName("IGP")]
-        [StringEnumValue("IGP")]
+        [JsonStringEnumMemberName("IGP")]
+        [EnumValue<string>("DetranSC", "IGP")]
         IGP,
-        [JsonPropertyName("IPCA")]
-        [StringEnumValue("IPCA")]
+        [JsonStringEnumMemberName("IPCA")]
+        [EnumValue<string>("DetranSC", "IPCA")]
         IGPM
         
     }

@@ -213,7 +213,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 UFLicenciamento = source.veiculo.UfPlaca,
                 UFPlaca = source.veiculo.UfPlaca,
                 Placa = source.veiculo.Placa,
-                RENAVAM = source.veiculo.Renavam.GetNumbers().ToLong() ?? 0,
+                RENAVAM = source.veiculo.Renavam.ToLong(),
                 AnoFabricacao = source.veiculo.AnoFabricacao ?? 0,
                 AnoModelo = source.veiculo.AnoModelo ?? 0,
                 #endregion
@@ -226,12 +226,12 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 #region Dados do Contrato
                 NumContrato = source.request.Contrato.NumeroContrato,
                 DataContrato = source.request.Contrato.DataRegistro.ToInt(),
-                QtdParcelas = source.request.Contrato.Parcelas,
+                QtdParcelas = source.request.Contrato.Parcelas.GetValueOrDefault(),
                 #endregion
 
                 #region Gravame
-                NumGravame = source.veiculo.Gravame.ToInt().Value,
-                TipoGravame = source.request.Contrato.RestricaoContrato.ToIntValue(),
+                NumGravame = source.veiculo.Gravame.ToInt(),
+                TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>(),
                 #endregion
 
                 #region Taxas
@@ -269,9 +269,9 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 #endregion
 
                 #region Indice, Consórcio e Aditivo
-                Indice = source.request.Contrato.IndiceCorrecao.ToStringValue(),
+                Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>(),
                 NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio,
-                NumCotaConsorcio = source.request.Contrato.CotaConsorcio.GetNumbers().ToInt().Value,
+                NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt(),
                 NumAditivo = source.request.NumAditivo,
                 DataAditivo = source.request.Contrato.DataCadastro.ToInt(),
                 #endregion

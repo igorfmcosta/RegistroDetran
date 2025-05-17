@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RegistroDetran.Application.DTOs;
 using RegistroDetran.Application.DTOs.Contrato;
 using RegistroDetran.Application.Services.Interfaces;
 
@@ -8,6 +9,15 @@ namespace RegistroDetran.API.Controllers
     {
         public static void MapDetranScEndpoints(this WebApplication app)
         {
+            app.MapPost("/api/detran/sc/teste", (
+                [FromBody] TesteDTO request) =>
+            {
+                return Results.Ok(request);
+            })
+            .WithName("Teste")
+            .WithOpenApi()
+            .AllowAnonymous();
+
             app.MapPost("/api/detran/sc/registrar_contrato", async (
                 CancellationToken token,
                 [FromBody] ContratoRequest request,

@@ -6,5 +6,10 @@
         {
             return int.Parse(dateTime.ToString("yyyyMMdd"));
         }
+
+        public static int ToInt(this DateTime? dateTime)
+        {
+            return int.Parse(dateTime.GetValueOrDefault().ToString("yyyyMMdd"));
+        }
     }
 }
