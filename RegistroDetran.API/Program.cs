@@ -1,7 +1,10 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Http.Json;
 using RegistroDetran.API.Controllers;
 using RegistroDetran.API.Extensions;
+using RegistroDetran.Application.Validators;
 using RegistroDetran.Infrastructure.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.Converters.Add(new CustomDateTimeConverter());
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +26,8 @@ builder.Services
     .AddRepositories()
     .AddServices()
     .AddJwtAuthentication(builder.Configuration);
+
+builder.Services.AddValidatorsFromAssemblyContaining<ContratoValidator>();
 
 var app = builder.Build();
 

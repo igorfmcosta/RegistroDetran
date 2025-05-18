@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using RegistroDetran.API.Extensions;
 using RegistroDetran.Application.DTOs;
 using RegistroDetran.Application.DTOs.Contrato;
 using RegistroDetran.Application.Services.Interfaces;
+
 
 namespace RegistroDetran.API.Controllers
 {
@@ -21,11 +24,13 @@ namespace RegistroDetran.API.Controllers
             app.MapPost("/api/detran/sc/registrar_contrato", async (
                 CancellationToken token,
                 [FromBody] ContratoRequest request,
-                [FromServices] IDetranScService soapService) =>
-            {
-                var response = await soapService.RegistrarContrato(token, request);
-                return Results.Ok(response);
-            })
+                [FromServices] IDetranScService soapService,
+                IValidator<Contrato> validator) =>
+                await request.Contrato.ValidateAndHandle(validator, async validDto => // Explicitly specify the generic type
+                {
+                    var response = await soapService.RegistrarContrato(token, request);
+                    return Results.Ok(response);
+                }))
             .WithName("RegistrarContrato")
             .WithOpenApi()
             .RequireAuthorization();

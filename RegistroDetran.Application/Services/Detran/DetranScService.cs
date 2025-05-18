@@ -28,8 +28,10 @@ namespace RegistroDetran.Application.Services.Detran
                     response.Add(await new RegistrarContratoResquestService(_httpClient, detranScSettings)
                     .SendRequestAsync(cancellationToken, request));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.InnerException?.Message);
                     var errorMessage = $"Erro ao registrar contrato para o veículo {item.Placa}.";
                     response.Add(errorMessage);
                     continue;
