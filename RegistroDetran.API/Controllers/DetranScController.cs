@@ -33,7 +33,7 @@ namespace RegistroDetran.API.Controllers
                 }))
             .WithName("RegistrarContrato")
             .WithOpenApi()
-            .RequireAuthorization();
+            .AllowAnonymous();
 
             app.MapPost("/api/detran/sc/consultar_contrato", async (
                 CancellationToken token,
@@ -45,7 +45,7 @@ namespace RegistroDetran.API.Controllers
             })
             .WithName("ConsultarSequencialContrato")
             .WithOpenApi()
-            .RequireAuthorization();
+            .AllowAnonymous();
 
             app.MapPost("/api/detran/sc/anexar_arquivo", async (
                 CancellationToken token,
@@ -57,7 +57,7 @@ namespace RegistroDetran.API.Controllers
             })
             .WithName("AnexarAquivo")
             .WithOpenApi()
-            .RequireAuthorization();
+            .AllowAnonymous();
         }
     }
 }

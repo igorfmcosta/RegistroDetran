@@ -49,7 +49,8 @@ namespace RegistroDetran.Application.Services.Detran
             {
                 try
                 {
-                    var request = (ConsultarSequencialContratoDTO)(contratoRequest, item);
+                    var dados = (ConsultarSequencialContratoDTO)(contratoRequest, item);
+                    var request = new BodyConsulta(dados);
                     response.Add(await new ConsultarSequencialContratoResquestService(_httpClient, detranScSettings)
                     .SendRequestAsync(cancellationToken, request));
                 }

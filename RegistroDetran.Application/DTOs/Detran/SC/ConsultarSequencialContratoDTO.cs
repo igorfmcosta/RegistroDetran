@@ -4,7 +4,38 @@ using System.Xml.Serialization;
 
 namespace RegistroDetran.Application.DTOs.Detran.SC
 {
-    [XmlType(TypeName = "Dados", Namespace = "http://tempuri.org/")]
+    public class BodyConsulta
+    {
+        public BodyConsulta(ConsultarSequencialContratoDTO dados)
+        {
+            ConsultarSequencialContrato = new ConsultarSequencialContrato(dados);
+        }
+        public BodyConsulta()
+        {
+        }
+
+        [XmlElement(ElementName = "ConsultarSequencialContrato", Namespace = Envelope<object>.RegNs)]
+        public ConsultarSequencialContrato ConsultarSequencialContrato { get; set; }
+    }
+
+    [XmlType(TypeName = "RegistrarContrato", Namespace = Envelope<object>.RegNs)]
+    public class ConsultarSequencialContrato
+    {
+        public ConsultarSequencialContrato(ConsultarSequencialContratoDTO dados)
+        {
+            Dados = dados;
+        }
+
+        public ConsultarSequencialContrato()
+        {
+        }
+
+        [XmlElement(ElementName = "Dados", Namespace = Envelope<object>.RegNs)]
+        public ConsultarSequencialContratoDTO? Dados { get; set; }
+    }
+
+
+    [XmlType(TypeName = "Dados", Namespace = Envelope<object>.RegNs)]
     public class ConsultarSequencialContratoDTO
     {
         [XmlElement(ElementName = "Chassi", IsNullable = true)]
