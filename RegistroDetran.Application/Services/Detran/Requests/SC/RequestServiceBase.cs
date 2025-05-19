@@ -14,7 +14,6 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
         {
             _detranScSettings = detranScSettings;
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(_detranScSettings.BaseUrl);
         }
         protected abstract string SoapAction { get; }
         protected abstract string OperationName { get; }

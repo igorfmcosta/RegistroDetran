@@ -1,8 +1,11 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RegistroDetran.API.Controllers;
 using RegistroDetran.API.Extensions;
 using RegistroDetran.Application.Validators;
+using RegistroDetran.Core.Models.Options;
 using RegistroDetran.Infrastructure.Data;
 using System.Text.Json.Serialization;
 
@@ -20,12 +23,29 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Bind and protect configuration
+builder.Services.Configure<JwtOptions>(config =>
+{
+    var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
+    config.Secret = jwtSettings!.Secret;
+});
+
+builder.Services.Configure<AppUserOptions>(config =>
+{
+    var credentials = builder.Configuration.GetSection("AppUser").Get<AppUserOptions>();
+    config.Username = credentials!.Username;
+    config.Password = credentials.Password;
+});
+
+builder.Services.Configure<SoapServiceOptions>(builder.Configuration.GetSection("SoapService"));
+builder.Services.Configure<DetranScOptions>(builder.Configuration.GetSection("DetranSC"));
+
 // Custom service extensions
 builder.Services
-    .AddDatabase(builder.Configuration)
+    .AddDatabase()
     .AddRepositories()
-    .AddServices()
-    .AddJwtAuthentication(builder.Configuration);
+    .AddServices(builder.Configuration)
+    .AddJwtAuthentication();
 
 builder.Services.AddValidatorsFromAssemblyContaining<ContratoValidator>();
 

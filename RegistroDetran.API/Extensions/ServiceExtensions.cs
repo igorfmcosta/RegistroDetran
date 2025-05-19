@@ -20,7 +20,7 @@ namespace RegistroDetran.API.Extensions
 {
     public static class ServiceExtensions
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDatabase(this IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase("CleanArchitectureDb"));
@@ -37,9 +37,11 @@ namespace RegistroDetran.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient<IDetranScService, DetranScService>()
+            services.AddHttpClient<IDetranScService, DetranScService>("DetranSC", client =>
+                    client.BaseAddress = new Uri(configuration.GetSection("DetranSC")?.Get<DetranScOptions>()?.BaseUrl)
+                )
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
             services.AddHttpClient<ISoapService, SoapService>()
@@ -51,31 +53,8 @@ namespace RegistroDetran.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
         {
-            services.AddDataProtection()
-                .SetApplicationName("RegistroDetran");
-            services.AddSingleton<SecretProtector>();
-
-            // Bind and protect configuration
-            services.Configure<JwtOptions>(config =>
-            {
-                var protector = services.BuildServiceProvider().GetRequiredService<SecretProtector>();
-                var jwtSettings = configuration.GetSection("Jwt").Get<JwtOptions>();
-                config.Secret = protector.Unprotect(jwtSettings!.Secret);
-            });
-
-            services.Configure<AppUserOptions>(config =>
-            {
-                var protector = services.BuildServiceProvider().GetRequiredService<SecretProtector>();
-                var credentials = configuration.GetSection("AppUser").Get<AppUserOptions>();
-                config.Username = protector.Unprotect(credentials!.Username);
-                config.Password = protector.Unprotect(credentials.Password);
-            });
-
-            services.Configure<SoapServiceOptions>(configuration.GetSection("SoapService"));
-            services.Configure<DetranScOptions>(configuration.GetSection("DetranSC"));
-
             var serviceProvider = services.BuildServiceProvider();
             var jwtSettings = serviceProvider.GetRequiredService<IOptions<JwtOptions>>().Value;
             var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
