@@ -50,11 +50,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Exception handling middleware
-//app.UseMiddlewares();
+app.UseMiddlewares();
 
 // Map endpoints
 app.MapAuthEndpoints();
 app.MapSoapEndpoints();
 app.MapDetranScEndpoints();
+app.MapLogEndpoints();
 
 app.Run();

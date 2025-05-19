@@ -32,6 +32,8 @@ namespace RegistroDetran.API.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
+
             return services;
         }
 
@@ -44,6 +46,8 @@ namespace RegistroDetran.API.Extensions
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ILoggerService, LoggerService>();
+
             return services;
         }
 

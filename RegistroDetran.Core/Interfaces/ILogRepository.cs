@@ -2,7 +2,7 @@
 
 namespace RegistroDetran.Core.Interfaces
 {
-    public interface ILoggerService
+    public interface ILogRepository
     {
         Task<IEnumerable<LogEntry>> GetLogsAsync();
     }
