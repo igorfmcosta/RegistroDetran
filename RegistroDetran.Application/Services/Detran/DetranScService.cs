@@ -24,7 +24,8 @@ namespace RegistroDetran.Application.Services.Detran
             {
                 try
                 {
-                    var request = (RegistrarContratoDTO)(contratoRequest, item);
+                    var dados = (RegistrarContratoDTO)(contratoRequest, item);
+                    var request = new BodyContrato(dados);
                     response.Add(await new RegistrarContratoResquestService(_httpClient, detranScSettings)
                     .SendRequestAsync(cancellationToken, request));
                 }

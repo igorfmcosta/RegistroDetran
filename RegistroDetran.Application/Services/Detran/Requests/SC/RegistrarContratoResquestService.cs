@@ -4,7 +4,7 @@ using RegistroDetran.Core.Models.Options;
 namespace RegistroDetran.Application.Services.Detran.Requests.SC
 {
     public class RegistrarContratoResquestService
-        : RequestServiceBase<RegistrarContratoDTO>
+        : RequestServiceBase<BodyContrato>
     {
         public RegistrarContratoResquestService(HttpClient httpClient,
             DetranScOptions detranScSettings)

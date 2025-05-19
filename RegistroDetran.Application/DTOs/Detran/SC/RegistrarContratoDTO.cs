@@ -4,20 +4,47 @@ using System.Xml.Serialization;
 
 namespace RegistroDetran.Application.DTOs.Detran.SC
 {
-    [XmlType(TypeName = "Dados", Namespace = "http://tempuri.org/")]
+    public class BodyContrato
+    {
+        public BodyContrato(RegistrarContratoDTO dados)
+        {
+            RegistrarContrato = new RegistrarContrato(dados);
+        }
+        public BodyContrato()
+        {
+        }
+        public RegistrarContrato RegistrarContrato { get; set; }
+    }
+
+    [XmlType(TypeName = "RegistrarContrato", Namespace = Envelope<object>.RegNs)]
+    public class RegistrarContrato
+    {
+        public RegistrarContrato(RegistrarContratoDTO dados)
+        {
+            Dados = dados;
+        }
+
+        public RegistrarContrato()
+        {
+        }
+
+        [XmlElement(ElementName = "Dados", Namespace = Envelope<object>.RegNs)]
+        public RegistrarContratoDTO? Dados { get; set; }
+    }
+
     public class RegistrarContratoDTO
     {
-        [XmlElement(ElementName = "TipoOperacao", IsNullable = false)]
-        public int TipoOperacao { get; set; }
+        [XmlElement(ElementName = "TipoOperacao", IsNullable = true)]
+        public int? TipoOperacao { get; set; }
 
-        [XmlElement(ElementName = "SequencialContrato", IsNullable = false)]
-        public long SequencialContrato { get; set; }
+        [XmlElement(ElementName = "SequencialContrato", IsNullable = true)]
+        public long? SequencialContrato { get; set; }
 
         [XmlElement(ElementName = "Chassi", IsNullable = true)]
         public string Chassi { get; set; }
 
-        [XmlElement(ElementName = "Remarcacao", IsNullable = false)]
-        public int Remarcacao { get; set; }
+        [XmlElement(ElementName = "Remarcacao", IsNullable = true)]
+        public int? Remarcacao { get; set; }
 
         [XmlElement(ElementName = "UFPlaca", IsNullable = true)]
         public string UFPlaca { get; set; }
@@ -25,14 +52,14 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "Placa", IsNullable = true)]
         public string Placa { get; set; }
 
-        [XmlElement(ElementName = "RENAVAM", IsNullable = false)]
-        public long RENAVAM { get; set; }
+        [XmlElement(ElementName = "RENAVAM", IsNullable = true)]
+        public long? RENAVAM { get; set; }
 
-        [XmlElement(ElementName = "AnoFabricacao", IsNullable = false)]
-        public int AnoFabricacao { get; set; }
+        [XmlElement(ElementName = "AnoFabricacao", IsNullable = true)]
+        public int? AnoFabricacao { get; set; }
 
-        [XmlElement(ElementName = "AnoModelo", IsNullable = false)]
-        public int AnoModelo { get; set; }
+        [XmlElement(ElementName = "AnoModelo", IsNullable = true)]
+        public int? AnoModelo { get; set; }
 
         [XmlElement(ElementName = "NomeAgente", IsNullable = true)]
         public string NomeAgente { get; set; }
@@ -43,23 +70,23 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "NumContrato", IsNullable = true)]
         public string NumContrato { get; set; }
 
-        [XmlElement(ElementName = "DataContrato", IsNullable = false)]
-        public int DataContrato { get; set; }
+        [XmlElement(ElementName = "DataContrato", IsNullable = true)]
+        public int? DataContrato { get; set; }
 
-        [XmlElement(ElementName = "QtdParcelas", IsNullable = false)]
-        public int QtdParcelas { get; set; }
+        [XmlElement(ElementName = "QtdParcelas", IsNullable = true)]
+        public int? QtdParcelas { get; set; }
 
-        [XmlElement(ElementName = "NumGravame", IsNullable = false)]
-        public int NumGravame { get; set; }
+        [XmlElement(ElementName = "NumGravame", IsNullable = true)]
+        public int? NumGravame { get; set; }
 
-        [XmlElement(ElementName = "TipoGravame", IsNullable = false)]
-        public int TipoGravame { get; set; }
+        [XmlElement(ElementName = "TipoGravame", IsNullable = true)]
+        public int? TipoGravame { get; set; }
 
-        [XmlElement(ElementName = "TaxaJuroMes", IsNullable = false)]
-        public int TaxaJuroMes { get; set; }
+        [XmlElement(ElementName = "TaxaJuroMes", IsNullable = true)]
+        public int? TaxaJuroMes { get; set; }
 
-        [XmlElement(ElementName = "TaxaJuroAno", IsNullable = false)]
-        public int TaxaJuroAno { get; set; }
+        [XmlElement(ElementName = "TaxaJuroAno", IsNullable = true)]
+        public int? TaxaJuroAno { get; set; }
 
         [XmlElement(ElementName = "TaxaJuroMulta", IsNullable = true)]
         public string TaxaJuroMulta { get; set; }
@@ -67,11 +94,11 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "TaxaMoraDia", IsNullable = true)]
         public string TaxaMoraDia { get; set; }
 
-        [XmlElement(ElementName = "TaxaMulta", IsNullable = false)]
-        public int TaxaMulta { get; set; }
+        [XmlElement(ElementName = "TaxaMulta", IsNullable = true)]
+        public int? TaxaMulta { get; set; }
 
-        [XmlElement(ElementName = "TaxaMora", IsNullable = false)]
-        public int TaxaMora { get; set; }
+        [XmlElement(ElementName = "TaxaMora", IsNullable = true)]
+        public int? TaxaMora { get; set; }
 
         [XmlElement(ElementName = "IndicativoPenalidade", IsNullable = true)]
         public string IndicativoPenalidade { get; set; }
@@ -82,29 +109,29 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "IndicativoComissao", IsNullable = true)]
         public string IndicativoComissao { get; set; }
 
-        [XmlElement(ElementName = "Comissao", IsNullable = false)]
-        public int Comissao { get; set; }
+        [XmlElement(ElementName = "Comissao", IsNullable = true)]
+        public int? Comissao { get; set; }
 
-        [XmlElement(ElementName = "ValorTaxaContrato", IsNullable = false)]
-        public int ValorTaxaContrato { get; set; }
+        [XmlElement(ElementName = "ValorTaxaContrato", IsNullable = true)]
+        public int? ValorTaxaContrato { get; set; }
 
-        [XmlElement(ElementName = "ValorTotalFinanciamento", IsNullable = false)]
-        public int ValorTotalFinanciamento { get; set; }
+        [XmlElement(ElementName = "ValorTotalFinanciamento", IsNullable = true)]
+        public int? ValorTotalFinanciamento { get; set; }
 
-        [XmlElement(ElementName = "ValorIOF", IsNullable = false)]
-        public int ValorIOF { get; set; }
+        [XmlElement(ElementName = "ValorIOF", IsNullable = true)]
+        public int? ValorIOF { get; set; }
 
-        [XmlElement(ElementName = "ValorParcela", IsNullable = false)]
-        public int ValorParcela { get; set; }
+        [XmlElement(ElementName = "ValorParcela", IsNullable = true)]
+        public int? ValorParcela { get; set; }
 
-        [XmlElement(ElementName = "DataVectoPrimeiraParcela", IsNullable = false)]
-        public int DataVectoPrimeiraParcela { get; set; }
+        [XmlElement(ElementName = "DataVectoPrimeiraParcela", IsNullable = true)]
+        public int? DataVectoPrimeiraParcela { get; set; }
 
-        [XmlElement(ElementName = "DataVectoUltimaParcela", IsNullable = false)]
-        public int DataVectoUltimaParcela { get; set; }
+        [XmlElement(ElementName = "DataVectoUltimaParcela", IsNullable = true)]
+        public int? DataVectoUltimaParcela { get; set; }
 
-        [XmlElement(ElementName = "DataLiberacaoCredito", IsNullable = false)]
-        public int DataLiberacaoCredito { get; set; }
+        [XmlElement(ElementName = "DataLiberacaoCredito", IsNullable = true)]
+        public int? DataLiberacaoCredito { get; set; }
 
         [XmlElement(ElementName = "UFLiberacaoCredito", IsNullable = true)]
         public string UFLiberacaoCredito { get; set; }
@@ -118,14 +145,14 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "NumGrupoConsorcio", IsNullable = true)]
         public string NumGrupoConsorcio { get; set; }
 
-        [XmlElement(ElementName = "NumCotaConsorcio", IsNullable = false)]
-        public int NumCotaConsorcio { get; set; }
+        [XmlElement(ElementName = "NumCotaConsorcio", IsNullable = true)]
+        public int? NumCotaConsorcio { get; set; }
 
         [XmlElement(ElementName = "NumAditivo", IsNullable = true)]
         public string NumAditivo { get; set; }
 
-        [XmlElement(ElementName = "DataAditivo", IsNullable = false)]
-        public int DataAditivo { get; set; }
+        [XmlElement(ElementName = "DataAditivo", IsNullable = true)]
+        public int? DataAditivo { get; set; }
 
         [XmlElement(ElementName = "NomeLogradouroAgente", IsNullable = true)]
         public string NomeLogradouroAgente { get; set; }
@@ -145,11 +172,11 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "UFAgente", IsNullable = true)]
         public string UFAgente { get; set; }
 
-        [XmlElement(ElementName = "CEPAgente", IsNullable = false)]
-        public int CEPAgente { get; set; }
+        [XmlElement(ElementName = "CEPAgente", IsNullable = true)]
+        public int? CEPAgente { get; set; }
 
-        [XmlElement(ElementName = "DDDAgente", IsNullable = false)]
-        public int DDDAgente { get; set; }
+        [XmlElement(ElementName = "DDDAgente", IsNullable = true)]
+        public int? DDDAgente { get; set; }
 
         [XmlElement(ElementName = "TelefoneAgente", IsNullable = true)]
         public string TelefoneAgente { get; set; }
@@ -178,11 +205,11 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "UFDevedor", IsNullable = true)]
         public string UFDevedor { get; set; }
 
-        [XmlElement(ElementName = "CEPDevedor", IsNullable = false)]
-        public int CEPDevedor { get; set; }
+        [XmlElement(ElementName = "CEPDevedor", IsNullable = true)]
+        public int? CEPDevedor { get; set; }
 
-        [XmlElement(ElementName = "DDDDevedor", IsNullable = false)]
-        public int DDDDevedor { get; set; }
+        [XmlElement(ElementName = "DDDDevedor", IsNullable = true)]
+        public int? DDDDevedor { get; set; }
 
         [XmlElement(ElementName = "TelefoneDevedor", IsNullable = true)]
         public string TelefoneDevedor { get; set; }
@@ -234,73 +261,73 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>(),
                 #endregion
 
-                #region Taxas
-                TaxaJuroMes = (int)(source.request.Contrato.TaxaJurosMes * 100),
-                TaxaJuroAno = (int)(source.request.Contrato.TaxaJurosAno * 100),
-                TaxaJuroMulta = source.request.Contrato.TaxaJurosMulta.ToString(),
-                TaxaMoraDia = source.request.Contrato.TaxaMoraDia.ToString(),
-                TaxaMulta = (int)(source.request.Contrato.TaxaMulta * 100),
-                TaxaMora = (int)(source.request.Contrato.TaxaMora * 100),
-                #endregion
+                //#region Taxas
+                //TaxaJuroMes = (int)(source.request.Contrato.TaxaJurosMes * 100),
+                //TaxaJuroAno = (int)(source.request.Contrato.TaxaJurosAno * 100),
+                //TaxaJuroMulta = source.request.Contrato.TaxaJurosMulta.ToString(),
+                //TaxaMoraDia = source.request.Contrato.TaxaMoraDia.ToString(),
+                //TaxaMulta = (int)(source.request.Contrato.TaxaMulta * 100),
+                //TaxaMora = (int)(source.request.Contrato.TaxaMora * 100),
+                //#endregion
 
-                #region Penalidade e Comissões
-                IndicativoPenalidade = source.request.Contrato.IndicativoPenalidade.ToString(),
-                Penalidade = source.request.Contrato.DescricaoPenalidade,
-                IndicativoComissao = source.request.Contrato.IndicativoComissao.ToString(),
-                Comissao = (int)(source.request.Contrato.TaxaComissao * 100),
-                #endregion
+                //#region Penalidade e Comissões
+                //IndicativoPenalidade = source.request.Contrato.IndicativoPenalidade.ToString(),
+                //Penalidade = source.request.Contrato.DescricaoPenalidade,
+                //IndicativoComissao = source.request.Contrato.IndicativoComissao.ToString(),
+                //Comissao = (int)(source.request.Contrato.TaxaComissao * 100),
+                //#endregion
 
-                #region Valores
-                ValorTaxaContrato = (int)(source.request.Contrato.ValorRegistroContrato * 100),
-                ValorTotalFinanciamento = (int)(source.request.Contrato.ValorCredito * 100),
-                ValorIOF = (int)(source.request.Contrato.ValorIOF * 100),
-                ValorParcela = (int)(source.request.Contrato.ValorParcela * 100),
-                #endregion
+                //#region Valores
+                //ValorTaxaContrato = (int)(source.request.Contrato.ValorRegistroContrato * 100),
+                //ValorTotalFinanciamento = (int)(source.request.Contrato.ValorCredito * 100),
+                //ValorIOF = (int)(source.request.Contrato.ValorIOF * 100),
+                //ValorParcela = (int)(source.request.Contrato.ValorParcela * 100),
+                //#endregion
 
-                #region Vencimentos
-                DataVectoPrimeiraParcela = source.request.Contrato.VencimentoPrimeiraParcela.ToInt(),
-                DataVectoUltimaParcela = source.request.Contrato.VencimentoUltimaParcela.ToInt(),
-                #endregion
+                //#region Vencimentos
+                //DataVectoPrimeiraParcela = source.request.Contrato.VencimentoPrimeiraParcela.ToInt(),
+                //DataVectoUltimaParcela = source.request.Contrato.VencimentoUltimaParcela.ToInt(),
+                //#endregion
 
-                #region Liberação Crédito
-                DataLiberacaoCredito = source.request.Contrato.DataLiberacaoCredito.ToInt(),
-                UFLiberacaoCredito = source.request.Contrato.UfLiberacao,
-                MunicipioLiberacaoCredito = source.request.Contrato.MunicipioLiberacao,
-                #endregion
+                //#region Liberação Crédito
+                //DataLiberacaoCredito = source.request.Contrato.DataLiberacaoCredito.ToInt(),
+                //UFLiberacaoCredito = source.request.Contrato.UfLiberacao,
+                //MunicipioLiberacaoCredito = source.request.Contrato.MunicipioLiberacao,
+                //#endregion
 
-                #region Indice, Consórcio e Aditivo
-                Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>(),
-                NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio,
-                NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt(),
-                NumAditivo = source.request.NumAditivo,
-                DataAditivo = source.request.Contrato.DataCadastro.ToInt(),
-                #endregion
+                //#region Indice, Consórcio e Aditivo
+                //Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>(),
+                //NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio,
+                //NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt(),
+                //NumAditivo = source.request.NumAditivo,
+                //DataAditivo = source.request.Contrato.DataCadastro.ToInt(),
+                //#endregion
 
-                #region Endereço Agente
-                NomeLogradouroAgente = source.request.Contrato.AgenteFinanceiro?.Endereco,
-                NumImovelAgente = source.request.Contrato.AgenteFinanceiro?.Numero,
-                ComplementoImovelAgente = source.request.Contrato.AgenteFinanceiro?.Complemento,
-                BairroAgente = source.request.Contrato.AgenteFinanceiro?.Bairro,
-                NomeMunicipioAgente = source.request.Contrato.AgenteFinanceiro?.Municipio,
-                UFAgente = source.request.Contrato.AgenteFinanceiro?.Estado,
-                CEPAgente = source.request.Contrato.AgenteFinanceiro?.Cep.ToInt() ?? 0,
-                DDDAgente = source.request.Contrato.AgenteFinanceiro.Telefone.ToIntSubString(0,2),
-                TelefoneAgente = source.request.Contrato.AgenteFinanceiro?.Telefone.Substring(2),
-                #endregion
+                //#region Endereço Agente
+                //NomeLogradouroAgente = source.request.Contrato.AgenteFinanceiro?.Endereco,
+                //NumImovelAgente = source.request.Contrato.AgenteFinanceiro?.Numero,
+                //ComplementoImovelAgente = source.request.Contrato.AgenteFinanceiro?.Complemento,
+                //BairroAgente = source.request.Contrato.AgenteFinanceiro?.Bairro,
+                //NomeMunicipioAgente = source.request.Contrato.AgenteFinanceiro?.Municipio,
+                //UFAgente = source.request.Contrato.AgenteFinanceiro?.Estado,
+                //CEPAgente = source.request.Contrato.AgenteFinanceiro?.Cep.ToInt() ?? 0,
+                //DDDAgente = source.request.Contrato.AgenteFinanceiro.Telefone.ToIntSubString(0,2),
+                //TelefoneAgente = source.request.Contrato.AgenteFinanceiro?.Telefone.Substring(2),
+                //#endregion
 
-                #region Dados do Devedor
-                CPFCNPJDevedor = source.request.Contrato.DonoDoVeiculo?.CpfOuCnpj,
-                NomeDevedor = source.request.Contrato.DonoDoVeiculo?.NomeOuRazaoSocial,
-                NomeLogradouroDevedor = source.request.Contrato.DonoDoVeiculo?.Endereco,
-                NumImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Numero,
-                ComplementoImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Complemento,
-                BairroDevedor = source.request.Contrato.DonoDoVeiculo?.Bairro,
-                NomeMunicipioDevedor = source.request.Contrato.DonoDoVeiculo?.Municipio,
-                UFDevedor = source.request.Contrato.DonoDoVeiculo?.Estado,
-                CEPDevedor = source.request.Contrato.DonoDoVeiculo?.Cep.ToInt() ?? 0,
-                DDDDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.ToIntSubString(0,2),
-                TelefoneDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2),
-                #endregion
+                //#region Dados do Devedor
+                //CPFCNPJDevedor = source.request.Contrato.DonoDoVeiculo?.CpfOuCnpj,
+                //NomeDevedor = source.request.Contrato.DonoDoVeiculo?.NomeOuRazaoSocial,
+                //NomeLogradouroDevedor = source.request.Contrato.DonoDoVeiculo?.Endereco,
+                //NumImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Numero,
+                //ComplementoImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Complemento,
+                //BairroDevedor = source.request.Contrato.DonoDoVeiculo?.Bairro,
+                //NomeMunicipioDevedor = source.request.Contrato.DonoDoVeiculo?.Municipio,
+                //UFDevedor = source.request.Contrato.DonoDoVeiculo?.Estado,
+                //CEPDevedor = source.request.Contrato.DonoDoVeiculo?.Cep.ToInt() ?? 0,
+                //DDDDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.ToIntSubString(0,2),
+                //TelefoneDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2),
+                //#endregion
             };
     }
 }

@@ -1,10 +1,11 @@
-﻿using RegistroDetran.Core.Models.Options;
+﻿using RegistroDetran.Application.DTOs.Detran.SC;
+using RegistroDetran.Core.Models.Options;
 using System.Text;
 using System.Xml.Serialization;
 
 namespace RegistroDetran.Application.Services.Detran.Requests.SC
 {
-    public abstract class RequestServiceBase<TRequest>
+    public abstract class RequestServiceBase<TRequest> where TRequest : class
     {
         protected readonly HttpClient _httpClient;
         protected readonly DetranScOptions _detranScSettings;
@@ -26,8 +27,10 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
 
         protected async Task<string> ExecuteSoapRequestAsync(CancellationToken cancellationToken, TRequest request)
         {
-            var soapEnvelope = BuildSoapEnvelope(request);
-            var requestContent = new StringContent(soapEnvelope, Encoding.UTF8, "text/xml");
+            var envelope = CreateEnvelopeObject(request);
+
+            var xmlEnvelope = BuildxmlEnvelope(envelope);
+            var requestContent = new StringContent(xmlEnvelope, Encoding.UTF8, "text/xml");
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, ""))
             {
@@ -41,31 +44,41 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
             }
         }
 
-        private string BuildSoapEnvelope(TRequest request)
+        private string BuildxmlEnvelope(Envelope<TRequest> envelope)
         {
-            var serializer = new XmlSerializer(typeof(TRequest));
-            using (var writer = new StringWriter())
+            var ns = new XmlSerializerNamespaces();
+            ns.Add("soap", Envelope<TRequest>.SoapNs);
+            ns.Add("reg", Envelope<TRequest>.RegNs);
+            var serializer = new XmlSerializer(typeof(Envelope<TRequest>));
+            try
             {
-                serializer.Serialize(writer, request);
-                var requestBody = writer.ToString();
-
-                return $@"<?xml version=""1.0"" encoding=""utf-8""?>
-                <soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
-                               xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" 
-                               xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                    <soap:Header>
-                        <Credenciais xmlns=""http://webservicesh.sc.gov.br/detran/RegistroContrato"">
-                          <Usuario>{_detranScSettings.Usuario}</Usuario>
-                          <Senha>{_detranScSettings.Senha}</Senha>
-                        </Credenciais>
-                      </soap:Header>
-                    <soap:Body>
-                        <{OperationName} xmlns=""http://webservicesh.sc.gov.br/detran/RegistroContrato"">
-                            {requestBody}
-                        </{OperationName}>
-                    </soap:Body>
-                </soap:Envelope>";
+                using (var writer = new StringWriter())
+                {
+                    serializer.Serialize(writer, envelope, ns);
+                    return writer.ToString();
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        private Envelope<TRequest> CreateEnvelopeObject(TRequest request)
+        {
+            return new Envelope<TRequest>
+            {
+                Header = new Header
+                {
+                    Credenciais = new Credenciais
+                    {
+                        Usuario = _detranScSettings.Usuario,
+                        Senha = _detranScSettings.Senha
+                    }
+                },
+                Body = request
+            };
         }
     }
 }
