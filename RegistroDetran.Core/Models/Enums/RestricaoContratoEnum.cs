@@ -6,22 +6,22 @@ namespace RegistroDetran.Core.Models.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RestricaoContratoEnum
     {
-        [JsonStringEnumMemberName("Alienação Fiduciária Consórcio")]
+        [JsonStringEnumMemberName("ALIENACAO_FIDUCIARIA_CONSORCIO")]
         [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_CONSORCIO,
-        [JsonStringEnumMemberName("Alienação Fiduciária Financiamento")]
+        [JsonStringEnumMemberName("ALIENACAO_FIDUCIARIA_FINANCIAMENTO")]
         [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_FINANCIAMENTO,
-        [JsonStringEnumMemberName("Penhor")]
+        [JsonStringEnumMemberName("PENHOR")]
         [EnumValue<int>("DetranSC", 9)]
         PENHOR,
-        [JsonStringEnumMemberName("Reserva de Domínio")]
+        [JsonStringEnumMemberName("RESERVA_DOMINIO")]
         [EnumValue<int>("DetranSC", 2)]
         RESERVA_DOMINIO,
-        [JsonStringEnumMemberName("Arrendamento Mercantil")]
+        [JsonStringEnumMemberName("ARRENDAMENTO_MERCANTIL")]
         [EnumValue<int>("DetranSC", 1)]
         ARRENDAMENTO_MERCANTIL,
-        [JsonStringEnumMemberName("Alienação Fiduciária Cédula de Crédito")]
+        [JsonStringEnumMemberName("ALIENACAO_FIDUCIARIA_CEDULA_CREDITO")]
         [EnumValue<int>("DetranSC", 3)]
         ALIENACAO_FIDUCIARIA_CEDULA_CREDITO
     }

@@ -5,18 +5,20 @@ namespace RegistroDetran.Core.Extensions
 {
     public static class EnumExtensions
     {
-        public static TValue GetValue<TValue>(this Enum value, string apiName)
+        public static TValue? GetValue<TValue>(this Enum value, string apiName)
         {
+            if (value == null)
+                return default(TValue);
+
             var field = value.GetType().GetField(value.ToString());
             var attribute = field?.GetCustomAttribute<EnumValueAttribute<TValue>>();
 
             return attribute != null
                 ? attribute.Value
-                : throw new InvalidOperationException(
-                    $"{typeof(EnumValueAttribute<TValue>).Name} not found for {value}");
+                : default(TValue);
         }
 
-        public static T GetDetranScValue<T>(this Enum value)
+        public static T? GetDetranScValue<T>(this Enum value)
         {
             return value.GetValue<T>("DetranSC");
         }

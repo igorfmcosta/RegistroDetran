@@ -13,6 +13,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         public BodyContrato()
         {
         }
+        [XmlElement(ElementName = "RegistrarContrato", Namespace = Envelope<object>.RegNs)]
         public RegistrarContrato RegistrarContrato { get; set; }
     }
 
@@ -77,7 +78,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         public int? QtdParcelas { get; set; }
 
         [XmlElement(ElementName = "NumGravame", IsNullable = true)]
-        public int? NumGravame { get; set; }
+        public long? NumGravame { get; set; }
 
         [XmlElement(ElementName = "TipoGravame", IsNullable = true)]
         public int? TipoGravame { get; set; }
@@ -110,7 +111,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         public string IndicativoComissao { get; set; }
 
         [XmlElement(ElementName = "Comissao", IsNullable = true)]
-        public int? Comissao { get; set; }
+        public decimal? Comissao { get; set; }
 
         [XmlElement(ElementName = "ValorTaxaContrato", IsNullable = true)]
         public int? ValorTaxaContrato { get; set; }
@@ -252,82 +253,86 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
 
                 #region Dados do Contrato
                 NumContrato = source.request.Contrato.NumeroContrato,
-                DataContrato = source.request.Contrato.DataRegistro.ToInt(),
-                QtdParcelas = source.request.Contrato.Parcelas.GetValueOrDefault(),
+                DataContrato = source.request.Contrato.DataCadastro.ToInt(),
+                QtdParcelas = source.request.Contrato.QuantidadeMeses ?? 1,
                 #endregion
 
                 #region Gravame
-                NumGravame = source.veiculo.Gravame.ToInt(),
+                NumGravame = source.veiculo.Gravame.ToLong(),
                 TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>(),
                 #endregion
 
-                //#region Taxas
-                //TaxaJuroMes = (int)(source.request.Contrato.TaxaJurosMes * 100),
-                //TaxaJuroAno = (int)(source.request.Contrato.TaxaJurosAno * 100),
-                //TaxaJuroMulta = source.request.Contrato.TaxaJurosMulta.ToString(),
-                //TaxaMoraDia = source.request.Contrato.TaxaMoraDia.ToString(),
-                //TaxaMulta = (int)(source.request.Contrato.TaxaMulta * 100),
-                //TaxaMora = (int)(source.request.Contrato.TaxaMora * 100),
-                //#endregion
+                #region Taxas
+                TaxaJuroMes = (int)(source.request.Contrato.TaxaJurosMes * 100),
+                TaxaJuroAno = (int)(source.request.Contrato.TaxaJurosAno * 100),
+                TaxaJuroMulta = source.request.Contrato.TaxaJurosMulta.ToXMLString(),
+                TaxaMoraDia = source.request.Contrato.IndicativoMoraDia.ToXMLString(),
+                TaxaMulta = (int)(source.request.Contrato.TaxaMulta * 100),
+                TaxaMora = (int)(source.request.Contrato.TaxaMora * 100),
+                #endregion
 
-                //#region Penalidade e Comissões
-                //IndicativoPenalidade = source.request.Contrato.IndicativoPenalidade.ToString(),
-                //Penalidade = source.request.Contrato.DescricaoPenalidade,
-                //IndicativoComissao = source.request.Contrato.IndicativoComissao.ToString(),
-                //Comissao = (int)(source.request.Contrato.TaxaComissao * 100),
-                //#endregion
+                #region Penalidade e Comissões
+                IndicativoPenalidade = source.request.Contrato.IndicativoPenalidade.ToXMLString(),
+                Penalidade = source.request.Contrato.DescricaoPenalidade,
+                IndicativoComissao = source.request.Contrato.IndicativoComissao.ToXMLString(),
+                Comissao = source.request.Contrato.Comissao.ToDecimal(),
+                #endregion
 
-                //#region Valores
-                //ValorTaxaContrato = (int)(source.request.Contrato.ValorRegistroContrato * 100),
-                //ValorTotalFinanciamento = (int)(source.request.Contrato.ValorCredito * 100),
-                //ValorIOF = (int)(source.request.Contrato.ValorIOF * 100),
-                //ValorParcela = (int)(source.request.Contrato.ValorParcela * 100),
-                //#endregion
+                #region Valores
+                ValorTaxaContrato = (int)(source.request.Contrato.TaxaContrato * 100),
+                ValorTotalFinanciamento = (int)(source.request.Contrato.ValorTotalDivida * 100),
+                ValorIOF = (int)(source.request.Contrato.ValorIOF * 100),
+                ValorParcela = (int)(source.request.Contrato.ValorParcela * 100),
+                #endregion
 
-                //#region Vencimentos
-                //DataVectoPrimeiraParcela = source.request.Contrato.VencimentoPrimeiraParcela.ToInt(),
-                //DataVectoUltimaParcela = source.request.Contrato.VencimentoUltimaParcela.ToInt(),
-                //#endregion
+                #region Vencimentos
+                DataVectoPrimeiraParcela = source.request.Contrato.VencimentoPrimeiraParcela.ToInt(),
+                DataVectoUltimaParcela = source.request.Contrato.VencimentoUltimaParcela.ToInt(),
+                #endregion
 
-                //#region Liberação Crédito
-                //DataLiberacaoCredito = source.request.Contrato.DataLiberacaoCredito.ToInt(),
-                //UFLiberacaoCredito = source.request.Contrato.UfLiberacao,
-                //MunicipioLiberacaoCredito = source.request.Contrato.MunicipioLiberacao,
-                //#endregion
+                #region Liberação Crédito
+                DataLiberacaoCredito = source.request.Contrato.DataLiberacaoCredito.ToInt(),
+                UFLiberacaoCredito = source.request.Contrato.UfLiberacao,
+                MunicipioLiberacaoCredito = source.request.Contrato.MunicipioLiberacao,
+                #endregion
 
-                //#region Indice, Consórcio e Aditivo
-                //Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>(),
-                //NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio,
-                //NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt(),
-                //NumAditivo = source.request.NumAditivo,
-                //DataAditivo = source.request.Contrato.DataCadastro.ToInt(),
-                //#endregion
+                #region Indice, Consórcio e Aditivo
+                Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>() ?? "0",
+                NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio,
+                NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt(),
+                NumAditivo = source.request.NumAditivo,
+                DataAditivo = source.request.Contrato.DataCadastro.ToInt(),
+                #endregion
 
-                //#region Endereço Agente
-                //NomeLogradouroAgente = source.request.Contrato.AgenteFinanceiro?.Endereco,
-                //NumImovelAgente = source.request.Contrato.AgenteFinanceiro?.Numero,
-                //ComplementoImovelAgente = source.request.Contrato.AgenteFinanceiro?.Complemento,
-                //BairroAgente = source.request.Contrato.AgenteFinanceiro?.Bairro,
-                //NomeMunicipioAgente = source.request.Contrato.AgenteFinanceiro?.Municipio,
-                //UFAgente = source.request.Contrato.AgenteFinanceiro?.Estado,
-                //CEPAgente = source.request.Contrato.AgenteFinanceiro?.Cep.ToInt() ?? 0,
-                //DDDAgente = source.request.Contrato.AgenteFinanceiro.Telefone.ToIntSubString(0,2),
-                //TelefoneAgente = source.request.Contrato.AgenteFinanceiro?.Telefone.Substring(2),
-                //#endregion
+                #region Endereço Agente
+                NomeLogradouroAgente = source.request.Contrato.AgenteFinanceiro?.Endereco,
+                NumImovelAgente = source.request.Contrato.AgenteFinanceiro?.Numero,
+                ComplementoImovelAgente = source.request.Contrato.AgenteFinanceiro?.Complemento,
+                BairroAgente = source.request.Contrato.AgenteFinanceiro?.Bairro,
+                NomeMunicipioAgente = source.request.Contrato.AgenteFinanceiro?.Municipio,
+                UFAgente = source.request.Contrato.AgenteFinanceiro?.Estado,
+                CEPAgente = source.request.Contrato.AgenteFinanceiro?.Cep.ToInt() ?? 0,
+                DDDAgente = source.request.Contrato.AgenteFinanceiro.Telefone.ToIntSubString(0, 2),
+                TelefoneAgente = source.request.Contrato.AgenteFinanceiro?.Telefone.Substring(2),
+                #endregion
 
-                //#region Dados do Devedor
-                //CPFCNPJDevedor = source.request.Contrato.DonoDoVeiculo?.CpfOuCnpj,
-                //NomeDevedor = source.request.Contrato.DonoDoVeiculo?.NomeOuRazaoSocial,
-                //NomeLogradouroDevedor = source.request.Contrato.DonoDoVeiculo?.Endereco,
-                //NumImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Numero,
-                //ComplementoImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Complemento,
-                //BairroDevedor = source.request.Contrato.DonoDoVeiculo?.Bairro,
-                //NomeMunicipioDevedor = source.request.Contrato.DonoDoVeiculo?.Municipio,
-                //UFDevedor = source.request.Contrato.DonoDoVeiculo?.Estado,
-                //CEPDevedor = source.request.Contrato.DonoDoVeiculo?.Cep.ToInt() ?? 0,
-                //DDDDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.ToIntSubString(0,2),
-                //TelefoneDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2),
-                //#endregion
+                #region Dados do Devedor
+                CPFCNPJDevedor = source.request.Contrato.DonoDoVeiculo?.CpfOuCnpj,
+                NomeDevedor = source.request.Contrato.DonoDoVeiculo?.NomeOuRazaoSocial,
+                NomeLogradouroDevedor = source.request.Contrato.DonoDoVeiculo?.Endereco,
+                NumImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Numero,
+                ComplementoImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Complemento,
+                BairroDevedor = source.request.Contrato.DonoDoVeiculo?.Bairro,
+                NomeMunicipioDevedor = source.request.Contrato.DonoDoVeiculo?.Municipio,
+                UFDevedor = source.request.Contrato.DonoDoVeiculo?.Estado,
+                CEPDevedor = source.request.Contrato.DonoDoVeiculo?.Cep.ToInt() ?? 0,
+                DDDDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd is null ?
+                    source.request.Contrato.DonoDoVeiculo.TelefoneComDdd.ToIntSubString(0, 2)
+                    : source.request.Contrato.DonoDoVeiculo.CelularComDdd.ToIntSubString(0,2),
+                TelefoneDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2) is null ?
+                    source.request.Contrato.DonoDoVeiculo.TelefoneComDdd.Substring(2)
+                    : source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2),
+                #endregion
             };
     }
 }

@@ -18,8 +18,8 @@ namespace RegistroDetran.Core.Models.Enums
         [JsonStringEnumMemberName("IGP")]
         [EnumValue<string>("DetranSC", "IGP")]
         IGP,
-        [JsonStringEnumMemberName("IPCA")]
-        [EnumValue<string>("DetranSC", "IPCA")]
+        [JsonStringEnumMemberName("IGPM")]
+        [EnumValue<string>("DetranSC", "IGPM")]
         IGPM
         
     }

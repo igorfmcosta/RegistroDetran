@@ -59,7 +59,6 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
