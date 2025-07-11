@@ -29,12 +29,13 @@ namespace RegistroDetran.Application.Services.Detran.Requests.SC
             var envelope = CreateEnvelopeObject(request);
 
             var xmlEnvelope = BuildxmlEnvelope(envelope);
-            var requestContent = new StringContent(xmlEnvelope, Encoding.UTF8, "text/xml");
+            var requestContent = new StringContent(xmlEnvelope, Encoding.UTF8, "application/soap+xml");
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, ""))
             {
                 requestMessage.Content = requestContent;
                 requestMessage.Headers.Add("SOAPAction", SoapAction);
+                requestMessage.Headers.Add("Accept", "application/soap+xml");
 
                 var response = await _httpClient.SendAsync(requestMessage, cancellationToken);
                 response.EnsureSuccessStatusCode();

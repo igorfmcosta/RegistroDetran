@@ -14,6 +14,7 @@ using RegistroDetran.Infrastructure.Data;
 using RegistroDetran.Infrastructure.Middleware;
 using RegistroDetran.Infrastructure.Protection;
 using RegistroDetran.Infrastructure.Repositories;
+using System.Net.Http;
 using System.Text;
 
 namespace RegistroDetran.API.Extensions
@@ -39,9 +40,13 @@ namespace RegistroDetran.API.Extensions
 
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient<IDetranScService, DetranScService>("DetranSC", client =>
-                    client.BaseAddress = new Uri(configuration.GetSection("DetranSC")?.Get<DetranScOptions>()?.BaseUrl)
-                )
+
+            services.AddHttpClient<IDetranScService, DetranScService>()
+                .ConfigureHttpClient((serviceProvider, client) =>
+                {
+                    client.BaseAddress = new Uri(configuration.GetSection("DetranSC")?.Get<DetranScOptions>()?.BaseUrl);
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("RegistroDetran/1.0");
+                })
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
             services.AddHttpClient<ISoapService, SoapService>()
