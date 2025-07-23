@@ -12,9 +12,28 @@ namespace RegistroDetran.Application.Services.Detran
         private readonly HttpClient _httpClient = httpClient;
         private readonly DetranScOptions detranScSettings = detranScSettings.Value;
 
-        public async Task<string> AnexarAquivo(CancellationToken cancellationToken, ContratoRequest contrato) 
-            => await new AnexarAquivoResquestService(_httpClient, detranScSettings)
-            .SendRequestAsync(cancellationToken, contrato);
+        public async Task<IEnumerable<string>> AnexarAquivo(CancellationToken cancellationToken, ContratoRequest contrato)
+        {
+            var response = new List<string>();
+
+            foreach (var item in contrato.Contrato.VeiculoContrato)
+            {
+                try
+                {
+                    var dados = (AnexarArquvioContratoDto)(contrato, item);
+                    var request = new BodyAnexo(dados);
+                    response.Add(await new AnexarAquivoResquestService(_httpClient, detranScSettings)
+                    .SendRequestAsync(cancellationToken, request));
+                }
+                catch (Exception)
+                {
+                    var errorMessage = $"Erro ao consultar contrato para o veículo {item.Placa}.";
+                    response.Add(errorMessage);
+                    continue;
+                }
+            }
+            return response;
+        }
 
         public async Task<IEnumerable<string>> RegistrarContrato(CancellationToken cancellationToken, ContratoRequest contratoRequest)
         {

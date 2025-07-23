@@ -16,5 +16,10 @@
         public bool? ZeroKm { get; set; }
         public string UfPlaca { get; set; } = "";
         public TipoVeiculo TipoVeiculo { get; set; }
+        public long? SequencialContrato { get; set; } = 0;
+        public long? SequencialAditivo { get; set; } = 0;
+        public string NumContratoOrigem { get; set; } = "0";
+        public string NumAditivoOrigem { get; set; } = "0";
+        public string AnexoContrato { get; set; } = string.Empty;
     }
 }

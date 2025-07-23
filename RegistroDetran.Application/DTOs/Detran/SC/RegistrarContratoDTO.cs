@@ -232,9 +232,11 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 var result = new RegistrarContratoDTO();
                 #region Inclusão de novo contrato
                 result.TipoOperacao = source.request.TipoOperacao;
-                result.SequencialContrato = source.request.Sequencial.GetValueOrDefault();
-                result.NumContratoOrigem = source.request.NumContratoOrigem;
-                result.NumAditivoOrigem = source.request.NumAditivoOrigem;
+                result.SequencialContrato = source.veiculo.SequencialContrato;
+                result.NumAditivo = source.veiculo.SequencialAditivo.Value.ToString();
+                result.NumContratoOrigem = source.veiculo.NumContratoOrigem;
+                result.NumAditivoOrigem = source.veiculo.NumAditivoOrigem;
+
                 #endregion
 
                 #region Dados Veiculo
@@ -302,7 +304,6 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 result.Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>() ?? "0";
                 result.NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio;
                 result.NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt();
-                result.NumAditivo = source.request.NumAditivo;
                 result.DataAditivo = source.request.Contrato.DataCadastro.ToInt();
                 #endregion
 
