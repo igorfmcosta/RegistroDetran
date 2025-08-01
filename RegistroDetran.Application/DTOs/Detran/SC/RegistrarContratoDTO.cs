@@ -225,15 +225,15 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         public string NumAditivoOrigem { get; set; }
 
 
-        public static implicit operator RegistrarContratoDTO((ContratoRequest request, VeiculoContrato veiculo) source)
+        public static implicit operator RegistrarContratoDTO((Contrato.Contrato request, VeiculoContrato veiculo) source)
         {
             try
             {
                 var result = new RegistrarContratoDTO();
                 #region Inclusão de novo contrato
-                result.TipoOperacao = source.request.TipoOperacao;
+                result.TipoOperacao = source.request.TipoOperacao.GetDetranScValue<int>();
                 result.SequencialContrato = source.veiculo.SequencialContrato;
-                result.NumAditivo = source.veiculo.SequencialAditivo.Value.ToString();
+                result.NumAditivo = source.veiculo.SequencialAditivo?.ToString();
                 result.NumContratoOrigem = source.veiculo.NumContratoOrigem;
                 result.NumAditivoOrigem = source.veiculo.NumAditivoOrigem;
 
@@ -251,90 +251,90 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 #endregion
 
                 #region Agente Financeiro
-                result.NomeAgente = source.request.Contrato.AgenteFinanceiro?.NomeRazaoSocial;
-                result.CNPJAgente = source.request.Contrato.AgenteFinanceiro?.CpfCnpj;
+                result.NomeAgente = source.request.AgenteFinanceiro?.NomeRazaoSocial;
+                result.CNPJAgente = source.request.AgenteFinanceiro?.CpfCnpj;
                 #endregion
 
                 #region Dados do Contrato
-                result.NumContrato = source.request.Contrato.NumeroContrato;
-                result.DataContrato = source.request.Contrato.DataCadastro.ToInt();
-                result.QtdParcelas = source.request.Contrato.QuantidadeMeses ?? 1;
+                result.NumContrato = source.request.NumeroContrato;
+                result.DataContrato = source.request.DataCadastro.ToInt();
+                result.QtdParcelas = source.request.QuantidadeMeses ?? 1;
                 #endregion
 
                 #region Gravame
                 result.NumGravame = source.veiculo.Gravame.ToLong();
-                result.TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>();
+                result.TipoGravame = source.request.RestricaoContrato.GetDetranScValue<int>();
                 #endregion
 
                 #region Taxas
-                result.TaxaJuroMes = (int)(source.request.Contrato.TaxaJurosMes * 1000);
-                result.TaxaJuroAno = (int)(source.request.Contrato.TaxaJurosAno * 1000);
-                result.TaxaJuroMulta = source.request.Contrato.TaxaJurosMulta.ToXMLString();
-                result.TaxaMoraDia = source.request.Contrato.IndicativoMoraDia.ToXMLString();
-                result.TaxaMulta = (int)(source.request.Contrato.TaxaMulta * 1000);
-                result.TaxaMora = (int)(source.request.Contrato.TaxaMora * 1000);
+                result.TaxaJuroMes = (int)(source.request.TaxaJurosMes * 1000);
+                result.TaxaJuroAno = (int)(source.request.TaxaJurosAno * 1000);
+                result.TaxaJuroMulta = source.request.TaxaJurosMulta.ToXMLString();
+                result.TaxaMoraDia = source.request.IndicativoMoraDia.ToXMLString();
+                result.TaxaMulta = (int)(source.request.TaxaMulta * 1000);
+                result.TaxaMora = (int)(source.request.TaxaMora * 1000);
                 #endregion
 
                 #region Penalidade e Comissões
-                result.IndicativoPenalidade = source.request.Contrato.IndicativoPenalidade.ToXMLString();
-                result.Penalidade = source.request.Contrato.DescricaoPenalidade;
-                result.IndicativoComissao = source.request.Contrato.IndicativoComissao.ToXMLString();
-                result.Comissao = source.request.Contrato.Comissao.ToDecimal();
+                result.IndicativoPenalidade = source.request.IndicativoPenalidade.ToXMLString();
+                result.Penalidade = source.request.DescricaoPenalidade;
+                result.IndicativoComissao = source.request.IndicativoComissao.ToXMLString();
+                result.Comissao = source.request.Comissao.ToDecimal();
                 #endregion
 
                 #region Valores
-                result.ValorTaxaContrato = (int)(source.request.Contrato.TaxaContrato * 100);
-                result.ValorTotalFinanciamento = (int)(source.request.Contrato.ValorTotalDivida * 100);
-                result.ValorIOF = (int)(source.request.Contrato.ValorIOF * 100);
-                result.ValorParcela = (int)(source.request.Contrato.ValorParcela * 100);
+                result.ValorTaxaContrato = (int)(source.request.TaxaContrato * 100);
+                result.ValorTotalFinanciamento = (int)(source.request.ValorTotalDivida * 100);
+                result.ValorIOF = (int)(source.request.ValorIOF * 100);
+                result.ValorParcela = (int)(source.request.ValorParcela * 100);
                 #endregion
 
                 #region Vencimentos
-                result.DataVectoPrimeiraParcela = source.request.Contrato.VencimentoPrimeiraParcela.ToInt();
-                result.DataVectoUltimaParcela = source.request.Contrato.VencimentoUltimaParcela.ToInt();
+                result.DataVectoPrimeiraParcela = source.request.VencimentoPrimeiraParcela.ToInt();
+                result.DataVectoUltimaParcela = source.request.VencimentoUltimaParcela.ToInt();
                 #endregion
 
                 #region Liberação Crédito
-                result.DataLiberacaoCredito = source.request.Contrato.DataLiberacaoCredito.ToInt();
-                result.UFLiberacaoCredito = source.request.Contrato.UfLiberacao;
-                result.MunicipioLiberacaoCredito = source.request.Contrato.MunicipioLiberacao;
+                result.DataLiberacaoCredito = source.request.DataLiberacaoCredito.ToInt();
+                result.UFLiberacaoCredito = source.request.UfLiberacao;
+                result.MunicipioLiberacaoCredito = source.request.MunicipioLiberacao;
                 #endregion
 
                 #region Indice; Consórcio e Aditivo
-                result.Indice = source.request.Contrato.IndiceCorrecao.GetDetranScValue<string>() ?? "0";
-                result.NumGrupoConsorcio = source.request.Contrato.GrupoConsorcio;
-                result.NumCotaConsorcio = source.request.Contrato.CotaConsorcio.ToInt();
-                result.DataAditivo = source.request.Contrato.DataCadastro.ToInt();
+                result.Indice = source.request.IndiceCorrecao.GetDetranScValue<string>() ?? "0";
+                result.NumGrupoConsorcio = source.request.GrupoConsorcio;
+                result.NumCotaConsorcio = source.request.CotaConsorcio.ToInt();
+                result.DataAditivo = source.request.DataCadastro.ToInt();
                 #endregion
 
                 #region Endereço Agente
-                result.NomeLogradouroAgente = source.request.Contrato.AgenteFinanceiro?.Endereco;
-                result.NumImovelAgente = source.request.Contrato.AgenteFinanceiro?.Numero;
-                result.ComplementoImovelAgente = source.request.Contrato.AgenteFinanceiro?.Complemento;
-                result.BairroAgente = source.request.Contrato.AgenteFinanceiro?.Bairro;
-                result.NomeMunicipioAgente = source.request.Contrato.AgenteFinanceiro?.Municipio;
-                result.UFAgente = source.request.Contrato.AgenteFinanceiro?.Estado;
-                result.CEPAgente = source.request.Contrato.AgenteFinanceiro?.Cep.ToInt() ?? 0;
-                result.DDDAgente = source.request.Contrato.AgenteFinanceiro.Telefone.ToIntSubString(0, 2);
-                result.TelefoneAgente = source.request.Contrato.AgenteFinanceiro?.Telefone.Substring(2);
+                result.NomeLogradouroAgente = source.request.AgenteFinanceiro?.Endereco;
+                result.NumImovelAgente = source.request.AgenteFinanceiro?.Numero;
+                result.ComplementoImovelAgente = source.request.AgenteFinanceiro?.Complemento;
+                result.BairroAgente = source.request.AgenteFinanceiro?.Bairro;
+                result.NomeMunicipioAgente = source.request.AgenteFinanceiro?.Municipio;
+                result.UFAgente = source.request.AgenteFinanceiro?.Estado;
+                result.CEPAgente = source.request.AgenteFinanceiro?.Cep.ToInt() ?? 0;
+                result.DDDAgente = source.request.AgenteFinanceiro.Telefone.ToIntSubString(0, 2);
+                result.TelefoneAgente = source.request.AgenteFinanceiro?.Telefone.Substring(2);
                 #endregion
 
                 #region Dados do Devedor
-                result.CPFCNPJDevedor = source.request.Contrato.DonoDoVeiculo?.CpfOuCnpj;
-                result.NomeDevedor = source.request.Contrato.DonoDoVeiculo?.NomeOuRazaoSocial;
-                result.NomeLogradouroDevedor = source.request.Contrato.DonoDoVeiculo?.Endereco;
-                result.NumImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Numero;
-                result.ComplementoImovelDevedor = source.request.Contrato.DonoDoVeiculo?.Complemento;
-                result.BairroDevedor = source.request.Contrato.DonoDoVeiculo?.Bairro;
-                result.NomeMunicipioDevedor = source.request.Contrato.DonoDoVeiculo?.Municipio;
-                result.UFDevedor = source.request.Contrato.DonoDoVeiculo?.Estado;
-                result.CEPDevedor = source.request.Contrato.DonoDoVeiculo?.Cep.ToInt() ?? 0;
-                result.DDDDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd is null ?
-                            source.request.Contrato.DonoDoVeiculo.TelefoneComDdd.ToIntSubString(0, 2)
-                            : source.request.Contrato.DonoDoVeiculo.CelularComDdd.ToIntSubString(0, 2);
-                result.TelefoneDevedor = source.request.Contrato.DonoDoVeiculo.CelularComDdd is null ?
-                            source.request.Contrato.DonoDoVeiculo.TelefoneComDdd.Substring(2)
-                            : source.request.Contrato.DonoDoVeiculo.CelularComDdd.Substring(2);
+                result.CPFCNPJDevedor = source.request.DonoDoVeiculo?.CpfOuCnpj;
+                result.NomeDevedor = source.request.DonoDoVeiculo?.NomeOuRazaoSocial;
+                result.NomeLogradouroDevedor = source.request.DonoDoVeiculo?.Endereco;
+                result.NumImovelDevedor = source.request.DonoDoVeiculo?.Numero;
+                result.ComplementoImovelDevedor = source.request.DonoDoVeiculo?.Complemento;
+                result.BairroDevedor = source.request.DonoDoVeiculo?.Bairro;
+                result.NomeMunicipioDevedor = source.request.DonoDoVeiculo?.Municipio;
+                result.UFDevedor = source.request.DonoDoVeiculo?.Estado;
+                result.CEPDevedor = source.request.DonoDoVeiculo?.Cep.ToInt() ?? 0;
+                result.DDDDevedor = source.request.DonoDoVeiculo.CelularComDdd is null ?
+                            source.request.DonoDoVeiculo.TelefoneComDdd.ToIntSubString(0, 2)
+                            : source.request.DonoDoVeiculo.CelularComDdd.ToIntSubString(0, 2);
+                result.TelefoneDevedor = source.request.DonoDoVeiculo.CelularComDdd is null ?
+                            source.request.DonoDoVeiculo.TelefoneComDdd.Substring(2)
+                            : source.request.DonoDoVeiculo.CelularComDdd.Substring(2);
                 #endregion
 
                 return result;

@@ -8,6 +8,7 @@ namespace RegistroDetran.Application.DTOs.Contrato
         public string TipoFinanciamento { get; set; } = string.Empty;
         public string Categoria { get; set; } = string.Empty;
         public TipoContratoEnum? TipoContrato { get; set; }
+        public TipoOperacaoEnum TipoOperacao { get; set; }
         public string NumeroContrato { get; set; } = string.Empty;
         public string CodigoContratoFisico { get; set; } = string.Empty;
         public decimal? ValorTotalDivida { get; set; }

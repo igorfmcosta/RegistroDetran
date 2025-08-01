@@ -23,10 +23,10 @@ namespace RegistroDetran.API.Controllers
 
             app.MapPost("/api/detran/sc/registrar_contrato", async (
                 CancellationToken token,
-                [FromBody] ContratoRequest request,
+                [FromBody] Contrato request,
                 [FromServices] IDetranScService soapService,
                 IValidator<Contrato> validator) =>
-                await request.Contrato.ValidateAndHandle(validator, async validDto => // Explicitly specify the generic type
+                await request.ValidateAndHandle(validator, async validDto => // Explicitly specify the generic type
                 {
                     var response = await soapService.RegistrarContrato(token, request);
                     return Results.Ok(response);
@@ -37,7 +37,7 @@ namespace RegistroDetran.API.Controllers
 
             app.MapPost("/api/detran/sc/consultar_contrato", async (
                 CancellationToken token,
-                [FromBody] ContratoRequest request,
+                [FromBody] Contrato request,
                 [FromServices] IDetranScService soapService) =>
             {
                 var response = await soapService.ConsultarSequencialContrato(token, request);
@@ -49,7 +49,7 @@ namespace RegistroDetran.API.Controllers
 
             app.MapPost("/api/detran/sc/anexar_arquivo", async (
                 CancellationToken token,
-                [FromBody] ContratoRequest request,
+                [FromBody] Contrato request,
                 [FromServices] IDetranScService soapService) =>
             {
                 var response = await soapService.AnexarAquivo(token, request);

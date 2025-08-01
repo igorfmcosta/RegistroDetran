@@ -47,7 +47,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         public string ArquivoContrato { get; set; }
 
 
-        public static implicit operator AnexarArquvioContratoDto((ContratoRequest request, VeiculoContrato veiculo) source) =>
+        public static implicit operator AnexarArquvioContratoDto((Contrato.Contrato request, VeiculoContrato veiculo) source) =>
             new AnexarArquvioContratoDto
             {
                 SequencialContrato = source.veiculo.SequencialContrato,

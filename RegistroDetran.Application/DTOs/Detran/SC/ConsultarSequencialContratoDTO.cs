@@ -53,14 +53,14 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "TipoGravame", IsNullable = false)]
         public int TipoGravame { get; set; }
 
-        public static implicit operator ConsultarSequencialContratoDTO((ContratoRequest request, VeiculoContrato veiculo) source) =>
+        public static implicit operator ConsultarSequencialContratoDTO((Contrato.Contrato request, VeiculoContrato veiculo) source) =>
             new ConsultarSequencialContratoDTO
             {
                 Chassi = source.veiculo.Chassi,
-                CNPJAgente = source.request.Contrato.AgenteFinanceiro?.CpfCnpj ?? string.Empty,
+                CNPJAgente = source.request.AgenteFinanceiro?.CpfCnpj ?? string.Empty,
                 Remarcacao = source.veiculo.Remarcado ? 1 : 2,
                 NumGravame = source.veiculo.Gravame.ToInt(),
-                TipoGravame = source.request.Contrato.RestricaoContrato.GetDetranScValue<int>(),
+                TipoGravame = source.request.RestricaoContrato.GetDetranScValue<int>(),
             };
     }
 }

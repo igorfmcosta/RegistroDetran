@@ -12,11 +12,11 @@ namespace RegistroDetran.Application.Services.Detran
         private readonly HttpClient _httpClient = httpClient;
         private readonly DetranScOptions detranScSettings = detranScSettings.Value;
 
-        public async Task<IEnumerable<string>> AnexarAquivo(CancellationToken cancellationToken, ContratoRequest contrato)
+        public async Task<IEnumerable<string>> AnexarAquivo(CancellationToken cancellationToken, Contrato contrato)
         {
             var response = new List<string>();
 
-            foreach (var item in contrato.Contrato.VeiculoContrato)
+            foreach (var item in contrato.VeiculoContrato)
             {
                 try
                 {
@@ -35,11 +35,11 @@ namespace RegistroDetran.Application.Services.Detran
             return response;
         }
 
-        public async Task<IEnumerable<string>> RegistrarContrato(CancellationToken cancellationToken, ContratoRequest contratoRequest)
+        public async Task<IEnumerable<string>> RegistrarContrato(CancellationToken cancellationToken, Contrato contratoRequest)
         {
             var response = new List<string>();
 
-            foreach (var item in contratoRequest.Contrato.VeiculoContrato)
+            foreach (var item in contratoRequest.VeiculoContrato)
             {
                 try
                 {
@@ -60,11 +60,11 @@ namespace RegistroDetran.Application.Services.Detran
             return response;
         }
 
-        public async Task<IEnumerable<string>> ConsultarSequencialContrato(CancellationToken cancellationToken, ContratoRequest contratoRequest)
+        public async Task<IEnumerable<string>> ConsultarSequencialContrato(CancellationToken cancellationToken, Contrato contratoRequest)
         {
             var response = new List<string>();
 
-            foreach (var item in contratoRequest.Contrato.VeiculoContrato)
+            foreach (var item in contratoRequest.VeiculoContrato)
             {
                 try
                 {
