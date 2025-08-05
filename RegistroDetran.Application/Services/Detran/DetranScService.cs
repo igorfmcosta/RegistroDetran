@@ -12,71 +12,92 @@ namespace RegistroDetran.Application.Services.Detran
         private readonly HttpClient _httpClient = httpClient;
         private readonly DetranScOptions detranScSettings = detranScSettings.Value;
 
-        public async Task<IEnumerable<string>> AnexarAquivo(CancellationToken cancellationToken, Contrato contrato)
+        public async Task<IEnumerable<ResultDTO<RegistrarContratoResult>>> AnexarAquivo(CancellationToken cancellationToken, Contrato contrato)
         {
-            var response = new List<string>();
+            var response = new List<ResultDTO<RegistrarContratoResult>>();
 
             foreach (var item in contrato.VeiculoContrato)
             {
+                var result = new ResultDTO<RegistrarContratoResult>();
+                result.Placa = item.Placa;
+
                 try
                 {
                     var dados = (AnexarArquvioContratoDto)(contrato, item);
                     var request = new BodyAnexo(dados);
-                    response.Add(await new AnexarAquivoResquestService(_httpClient, detranScSettings)
-                    .SendRequestAsync(cancellationToken, request));
+                    var xmlResult = await new AnexarAquivoResquestService(_httpClient, detranScSettings)
+                        .SendRequestAsync(cancellationToken, request);
+                    result.Result = xmlResult.Body.RegistrarContratoResponse.RegistrarContratoResult;
+
+                    response.Add(result);
                 }
                 catch (Exception)
                 {
                     var errorMessage = $"Erro ao consultar contrato para o veículo {item.Placa}.";
-                    response.Add(errorMessage);
+                    result.Erro = errorMessage;
+                    response.Add(result);
                     continue;
                 }
             }
             return response;
         }
 
-        public async Task<IEnumerable<string>> RegistrarContrato(CancellationToken cancellationToken, Contrato contratoRequest)
+        public async Task<IEnumerable<ResultDTO<RegistrarContratoResult>>> RegistrarContrato(CancellationToken cancellationToken, Contrato contratoRequest)
         {
-            var response = new List<string>();
-
+            var response = new List<ResultDTO<RegistrarContratoResult>>();
+            
             foreach (var item in contratoRequest.VeiculoContrato)
             {
+                var result = new ResultDTO<RegistrarContratoResult>();
+                result.Placa = item.Placa;
+
                 try
                 {
                     var dados = (RegistrarContratoDTO)(contratoRequest, item);
                     var request = new BodyContrato(dados);
-                    response.Add(await new RegistrarContratoResquestService(_httpClient, detranScSettings)
-                    .SendRequestAsync(cancellationToken, request));
+                    var xmlResult = await new RegistrarContratoResquestService(_httpClient, detranScSettings)
+                        .SendRequestAsync(cancellationToken, request);
+
+                    result.Result = xmlResult.Body.RegistrarContratoResponse.RegistrarContratoResult;
+                    
+                    response.Add(result);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     Console.WriteLine(ex.InnerException?.Message);
-                    var errorMessage = $"Erro ao registrar contrato para o veículo {item.Placa}.";
-                    response.Add(errorMessage);
+                    var errorMessage = $"Erro ao registrar contrato.";
+                    result.Erro = errorMessage;
+                    response.Add(result);
                     continue;
                 }
             }
             return response;
         }
 
-        public async Task<IEnumerable<string>> ConsultarSequencialContrato(CancellationToken cancellationToken, Contrato contratoRequest)
+        public async Task<IEnumerable<ResultDTO<RegistrarContratoResult>>> ConsultarSequencialContrato(CancellationToken cancellationToken, Contrato contratoRequest)
         {
-            var response = new List<string>();
+            var response = new List<ResultDTO<RegistrarContratoResult>> ();
 
             foreach (var item in contratoRequest.VeiculoContrato)
             {
+                var result = new ResultDTO<RegistrarContratoResult>();
+                result.Placa = item.Placa;
+
                 try
                 {
                     var dados = (ConsultarSequencialContratoDTO)(contratoRequest, item);
                     var request = new BodyConsulta(dados);
-                    response.Add(await new ConsultarSequencialContratoResquestService(_httpClient, detranScSettings)
-                    .SendRequestAsync(cancellationToken, request));
+                    var xmlResult = await new ConsultarSequencialContratoResquestService(_httpClient, detranScSettings)
+                    .SendRequestAsync(cancellationToken, request);
+                    result.Result = xmlResult.Body.RegistrarContratoResponse.RegistrarContratoResult;
+                    response.Add(result);
                 }
                 catch (Exception)
                 {
                     var errorMessage = $"Erro ao consultar contrato para o veículo {item.Placa}.";
-                    response.Add(errorMessage);
+                    result.Erro = errorMessage;
+                    response.Add(result);
                     continue;
                 }
             }

@@ -5,7 +5,7 @@ using RegistroDetran.Core.Models.Options;
 namespace RegistroDetran.Application.Services.Detran.Requests.SC
 {
     public class ConsultarSequencialContratoResquestService
-        : RequestServiceBase<BodyConsulta>
+        : RequestServiceBase<BodyConsulta, SoapEnvelopeRegistro>
     {
         public ConsultarSequencialContratoResquestService(HttpClient httpClient,
             DetranScOptions detranScSettings)

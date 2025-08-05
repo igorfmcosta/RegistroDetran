@@ -5,7 +5,7 @@ using RegistroDetran.Core.Models.Options;
 namespace RegistroDetran.Application.Services.Detran.Requests.SC
 {
     public class AnexarAquivoResquestService
-        : RequestServiceBase<BodyAnexo>
+        : RequestServiceBase<BodyAnexo, SoapEnvelopeRegistro>
     {
         public AnexarAquivoResquestService(HttpClient httpClient,
             DetranScOptions detranScSettings)
