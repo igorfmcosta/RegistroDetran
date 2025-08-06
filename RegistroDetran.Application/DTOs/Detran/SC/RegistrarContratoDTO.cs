@@ -38,8 +38,13 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
         [XmlElement(ElementName = "TipoOperacao", IsNullable = true)]
         public int? TipoOperacao { get; set; }
 
-        [XmlElement(ElementName = "SequencialContrato", IsNullable = true)]
+        //[XmlElement(ElementName = "SequencialContrato", IsNullable = false)]
         public long? SequencialContrato { get; set; }
+
+        public bool ShouldSerializeSequencialContrato()
+        {
+            return SequencialContrato != null;
+        }
 
         [XmlElement(ElementName = "Chassi", IsNullable = true)]
         public string Chassi { get; set; }
@@ -251,7 +256,7 @@ namespace RegistroDetran.Application.DTOs.Detran.SC
                 #endregion
 
                 #region Agente Financeiro
-                result.NomeAgente = source.request.AgenteFinanceiro?.NomeRazaoSocial;
+                result.NomeAgente = source.request.AgenteFinanceiro?.NomeRazaoSocial.Substring(0,40);
                 result.CNPJAgente = source.request.AgenteFinanceiro?.CpfCnpj;
                 #endregion
 

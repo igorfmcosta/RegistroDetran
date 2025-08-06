@@ -27,6 +27,6 @@
         public DadosCobranca? DadosCobranca { get; set; }
         public bool? Deletado { get; set; } = false;
         public List<Arquivo>? Arquivos { get; set; }
-        public bool Despachante { get; set; }
+        public bool? Despachante { get; set; }
     }
 }
